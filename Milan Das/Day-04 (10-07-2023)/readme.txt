@@ -1,4 +1,5 @@
 Day-04 (10-07-2023)
+-------------------
 1)  Startup point of a Java application is the main method that receives
     String[] array parameter. There may be several main methods, but the
     only startup point is this.
