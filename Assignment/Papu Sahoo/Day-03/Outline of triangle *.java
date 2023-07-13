@@ -21,7 +21,7 @@ public class Pyramidoutline {
 }
 Output:
 
-                   *
+              *
 					        * *
 					       *   *
 					      *     *
