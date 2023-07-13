@@ -3,7 +3,7 @@
         be arranged horizontally and subsequently five more in the next row horizontally
         and so on.
 
-    Example: 2 to 10
+    Example: 2 to 10 */
 
      2 x  1 =   2   3 x  1 =   3   4 x  1 =   4   5 x  1 =   5   6 x  1 =   6
      2 x  2 =   4   3 x  2 =   6   4 x  2 =   8   5 x  2 =  10   6 x  2 =  12
