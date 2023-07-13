@@ -1,4 +1,4 @@
-package com.algorithm;
+
 
 /*
 	a)  Draw a triangle of asterisks?
