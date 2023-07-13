@@ -1,3 +1,7 @@
+/*Flip/Invert/Toggle the case of all characters in a given String?
+        Original:   Quick Brown Fox Jumps Over The Lazy Dog
+        Invert:     qUICK bROWN fOX jUMPS oVER tHE lAZY dOG   */
+
 public class CaseFlip {
     public static void main(String[] args) {
         String original = "Quick Brown Fox Jumps Over The Lazy Dog";
