@@ -1,5 +1,4 @@
-/*Questions:-
-1.count the numbers of vowels in a given string.*/
+
 
 public class CaseFlip {
     public static void main(String[] args) {
