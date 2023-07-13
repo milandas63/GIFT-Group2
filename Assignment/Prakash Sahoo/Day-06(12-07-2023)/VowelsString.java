@@ -1,3 +1,6 @@
+/*Questions:-
+1.count the numbers of vowels in a given string.*/
+
 public class VowelCount {
     public static void main(String[] args) {
         String input = "Hello, World!";
