@@ -1,4 +1,4 @@
-
+//Java program Written by Guru prasad sahoo 
 public class Tables {
 	public static void main() {
 		System.out.println("Hello World-2!");
