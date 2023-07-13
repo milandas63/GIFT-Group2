@@ -26,10 +26,10 @@ public class PalindromeTriangle {
     }
 }
 
-/* When you run this code, it will generate the following output:
+/*
+Output
+When you run this code, it will generate the following output:
 
-css
-Copy code
           A 
         A B A 
       A B C B A 
