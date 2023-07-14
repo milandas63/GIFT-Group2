@@ -1,0 +1,11 @@
+    final modifier:
+        1)  When a class is final the same class is restricted to
+            be inherited
+            public final class SolarSystem {}
+            public class Sun extends SolarSystem {}
+        2)  If a field is defined final, the value of the field
+            can't be changed
+            public final double PI = 3.141;
+        3)  When a method is defined final in the parent class,
+            the same method is restricted to be overrided in the
+            child class
