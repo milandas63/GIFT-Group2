@@ -20,8 +20,8 @@ public class Pyramidoutline {
 	}
 }
 Output:
-
-              *
+					   
+                                                 *
 					        * *
 					       *   *
 					      *     *
