@@ -62,7 +62,7 @@ NO  NAME                        EMAIL-ID                        MOBILE
 
 30  Suvam Bhatta                suvam2022@gift.edu.in           8260549704
 
-31  Sukendu Dutta               sukendu2022@gift.edu.in         8986775695
+31  Sukhendu Dutta              sukendu2022@gift.edu.in         8986775695
 
 32  Anjan Kumar Nanda           ananda2022@gift.edu.in          8260988942
 
