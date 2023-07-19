@@ -1,3 +1,7 @@
+How to create a function
+Python list
+Example of 7 questions
+
 CLASSWORK:
     1.  Write a program to reverse all words in a string
     2.  Write a program to reverse the characters of each word in a string
