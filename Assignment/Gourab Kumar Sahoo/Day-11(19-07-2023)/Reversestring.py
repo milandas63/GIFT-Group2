@@ -26,3 +26,19 @@ for i in range(0, len(original), 2):
 	print(original[i], end='')
 
 print()
+
+print("------------------------------ Next --------------------------------")
+
+"""
+	Write a program to reverse all words in a string
+"""
+
+# Single line
+
+data = "Quick Brown Fox Jumps Over The Lazy Dog"
+dataList = data.split()
+
+for i in range(len(dataList)-1, -1, -1):
+	print(dataList[i], end=' ')
+
+print()
