@@ -42,3 +42,15 @@ for i in range(len(dataList)-1, -1, -1):
 	print(dataList[i], end=' ')
 
 print()
+
+
+print("-------------------------------- Next ------------------------------")
+
+for i in range(0, len(dataList)):
+	each = dataList[i]
+	for j in range(len(each)-1, -1, -1):
+		print(each[j], end='')
+	print(end=' ')
+
+print()
+
