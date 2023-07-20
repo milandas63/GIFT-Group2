@@ -54,3 +54,16 @@ for i in range(0, len(dataList)):
 
 print()
 
+print("-------------------------------- Next ------------------------------")
+
+"""
+	Stretch a string to 50 characters in length by adding dot to make it
+	right, center and left justified
+"""
+my_string = "Gandhi Institute For Technology"
+print(my_string.rjust(50,'.'))
+print(my_string.center(50,'.'))
+print(my_string.ljust(50,'.'))
+
+print()
+
