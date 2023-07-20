@@ -93,6 +93,32 @@ for i in range(0,len(count)):
 	if count[i]>0:
 		print( chr(i+65),'=',count[i])
 
+print()
+print("--------------------------------- Next ----------------------------------")
+
+import keyword
+print(keyword.kwlist)
+
+for i in range(0, len(keyword.kwlist)):
+	print((i+1),keyword.kwlist[i])
 
 print()
 print("-------------------------------- End ------------------------------")
+
+
+"""
+CLASSWORK:
+1.  Write a function that takes a list of strings and prints them, one per line, in a 
+	rectangular frame.
+    For example the list ["Hello", "World", "in", "a", "frame"] gets printed as:
+        *********
+        * Hello *
+        * World *
+        * in    *
+        * a     *
+        * frame *
+        *********
+
+2. write the pyramid program using rjust() function?
+
+"""
