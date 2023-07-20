@@ -38,3 +38,38 @@ for x in range(1, 11):
 		seed = seed + 5
 
 print()
+print("------------------------------ Next --------------------------------")
+
+"""
+	Count the number of occurances of each alphabets in a string
+		God is Good
+		D = 2
+		G = 2
+		I = 1
+		O = 3
+		S = 1
+"""
+count = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+text = "God is Good"
+for i in range(0, len(text)):
+	each = text[i]
+	asc = ord(each)
+	if asc>=65 and asc<=90:
+		count[asc-65] = count[asc-65]+1
+	elif asc>=97 and asc<=122:
+		count[asc-97] = count[asc-97]+1
+
+for i in range(0,len(count)):
+	if count[i]>0:
+		print( chr(i+65),'=',count[i])
+
+print()
+print("--------------------------------- Next ----------------------------------")
+
+import keyword
+print(keyword.kwlist)
+
+for i in range(0, len(keyword.kwlist)):
+	print((i+1),keyword.kwlist[i])
+
+print()
