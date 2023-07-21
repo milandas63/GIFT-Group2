@@ -62,5 +62,13 @@ LAMBDA
             overridden.
         w+: To write and read data. It will override existing data.
         a+: To append and read data from the file. It won’t override existing data.
+
+	CLASSWORK:
+	Write a program to read the content and print it. The output will appear with one space
+	after each character.
+		Example:
+			Hello World!
+			H e l l o   W o r l d !
+
 """
 
