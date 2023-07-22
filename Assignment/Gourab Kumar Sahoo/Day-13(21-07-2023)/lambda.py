@@ -19,7 +19,7 @@
 
 	Simple_interest = (principal * rate_of_interest * time_in_year)/100
 
-	QUESTION-2
+	
 	
 
 """
