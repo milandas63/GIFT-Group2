@@ -8,11 +8,11 @@ def calculate_age(birthdate):
 def get_birthdate_from_user():
     while True:
         try:
-            birthdate_str = input("Enter your birthdate (DD-MM-YYYY): ")
+            birthdate_str = input("Enter your birthdate (YYYY-MM-DD): ")
             birthdate = datetime.datetime.strptime(birthdate_str, "%Y-%m-%d").date()
             return birthdate
         except ValueError:
-            print("Invalid date format. Please use DD-MM-YYYY format.")
+            print("Invalid date format. Please use YYYY-MM-DD format.")
 
 if __name__ == "__main__":
     print("Welcome to the Age Calculator!")
