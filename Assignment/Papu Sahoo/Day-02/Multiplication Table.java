@@ -1,6 +1,7 @@
-/*
-
-*/
+/* Solve deep nesting of for loop to generate multiplication tables
+    a)  Print all multiplication tables from 2 to 10? Five tables are supposed to
+        be arranged horizontally and subsequently five more in the next row horizontally
+        and so on */
 public class Tables {
 	public static void main() {
 		System.out.println("Hello World-2!");
