@@ -1,0 +1,114 @@
+PROJECT DESCRIPTION
+System Requirement Specification (SRS)
+
+Screen-1:
+
+	MENU
+	1. Category
+	2. Location
+	3. Contact
+	4. Exit
+
+
+Screen-2 (Category):
+
+	Category Menu
+	1. Display
+	2. Add
+	3. Update
+	4. Delete
+	5. Exit
+
+Option=1 (Category Display)
+	+----------------------------------------------+
+	|ID | CAT_NAME                                 |
+	+----------------------------------------------+
+	| 1 | School Friend                            |
+	| 2 | College Friend                           |
+	| 3 | Professional Friend                      |
+	| 4 | Family Relatives                         |
+	| 5 | Blood Relation                           |
+	+----------------------------------------------+
+
+Option=2 (Add)
+	Category Name: xxxxxxxxxxxxxxxxxxxxx
+
+Option=3 (Update)
+	Category id:	###
+	Category name:	xxxxxxxxxxxxxxxxxxxx
+
+Option=4 (Delete)
+	Category id:	###
+	xxxxxxxxxxxxxxxxxxxxx
+	Are you sure? Y
+
+DELETE FROM category WHERE cat_id=?;
+
+Screen-3 (Location):
+
+	Location Menu
+	1. Display
+	2. Add
+	3. Update
+	4. Delete
+	5. Exit
+
+GROUP-1
+	1. Abinash Dash
+	2. Jyotilaxmi Senapati
+	3. Deviprasad Swain
+	4. Hitesh Mohanty
+	5. Rashmi Ranjan Sethi
+GROUP-2
+	1. Ritesh Baral
+	2. Kshitish Nanda
+	3. Satyajit Nayak
+	4. Kshirendra Malik
+	5. Om Biswajit
+GROUP-3
+	1. Manish Kumar
+	2. Md. Sartaz
+	3. Nandan Kumar
+	4. Sushant Kumar
+	5. Ri
+GROUP-4
+	1. Somanath Pradhan
+	2. Smruti Chandan Rath
+	3. Biswa Prakash Nayak
+	4.
+
+JDBC stands for Java DataBase Connectivity
+JDBC is used to connect Java programs with a database engine.
+There are 6 steps in JDBC:
+1. Load and Register Driver
+2. Create Connection Object
+3. Create Statement Object
+4. Create ResultSet Object
+5. Manipulate ResultSet
+6. Close ResultSet, Statement and Connection
+
+			//	Step-1 Load and Register Driver
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// 	Step-2 Create Connection Object
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/contact_db", "root", "");
+
+			// 	Step-3 Create Statement Object
+			stmt = conn.createStatement();
+			
+			//	Step-4 Create ResultSet Object
+			rs = stmt.executeQuery("SELECT c.contact_id, c.contact_name, c.mobile_no1, l.loc_name, g.cat_name FROM contact AS c LEFT JOIN location AS l ON c.loc_id=l.loc_id LEFT JOIN category AS g ON c.cat_id=g.cat_id ORDER BY c.contact_id");
+			rsmd = rs.getMetaData();
+
+			// Step-5 Manipulate the ResultSet
+			for(int i=1; i<=rsmd.getColumnCount(); i++) {
+				System.out.print(rsmd.getColumnName(i)+"\t");
+			}
+			System.out.println();
+			while(rs.next()) {
+				for(int i=1; i<=rsmd.getColumnCount(); i++) {
+					System.out.print(rs.getString(i)+"\t");
+				}
+				System.out.println();
+			}
+
