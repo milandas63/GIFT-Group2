@@ -1,26 +1,42 @@
-import java.util.StringTokenizer;
+package com.day8;
 
-public class ReverseWords {
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
-    public static String reverseWords(String str) {
-        StringTokenizer st = new StringTokenizer(str, " ");
-        String reversedWords = "";
-        while (st.hasMoreTokens()) {
-            String word = st.nextToken();
-            String reversedWord = "";
-            for (int i = word.length() - 1; i >= 0; i--) {
-                reversedWord += word.charAt(i);
-            }
-            reversedWords += reversedWord + " ";
-        }
-        return reversedWords.trim();
-    }
+public class CopyFile {
 
-    public static void main(String[] args) {
-        String str = "Gandhi Institute For Technology";
-        System.out.println("Original string: " + str);
-        String reversedString = reverseWords(str);
-        System.out.println("Reversed string: " + reversedString);
-    }
+	//	read from data.txt and write to tata.txt
+	public static void main(String[] args) {
+		try {
+			File f = new File("help.pdf");
+			long size = f.length();
+			int fivePC = (int)(size*0.05);
+			int count = 0;
+
+			FileInputStream fis = new FileInputStream(f);
+			FileOutputStream fos = new FileOutputStream("pleh.pdf");
+			
+			int n;
+			while( (n=fis.read())!=-1 ) {
+				fos.write(n);
+				count++;
+				if(count>=fivePC) {
+					System.out.print(".");
+					count = 0;
+				}
+			}
+			
+			fos.close();
+			fis.close();
+			
+		} catch(FileNotFoundException e) {
+		} catch(IOException e) {
+			
+		}
+	}
+
 }
 
