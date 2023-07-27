@@ -62,11 +62,5 @@ INSERT INTO contact VALUES
     (1, "Milan Das",     3, 1, NULL, "751024", "milandas63@gmail.com",   NULL, "7978168568", NULL, NULL),
     (2, "Prakash Sahoo", 3, 1, NULL, "751024", "prakashsahoo@gmail.com", NULL, "7967168568", NULL, NULL);
 
-SELECT c.contact_id, c.contact_name, c.mobile_no1, l.loc_name, g.cat_name FROM contact AS c
-LEFT JOIN location AS l ON c.loc_id=l.loc_id
-LEFT JOIN category AS g ON c.cat_id=g.cat_id
-ORDER BY c.contact_id
 
 
-# POS stants for Point Of Sales
-# Create all tables required for a POS application
