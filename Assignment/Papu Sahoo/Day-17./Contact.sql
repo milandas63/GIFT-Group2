@@ -45,11 +45,11 @@ use mycontact;
     select * from CONTACT;
 
     insert into CONTACT values
-            (1, "Papu Sahoo", "S", 1, 2, "Bhubaneswar", "751024", "[papu9876@gmail.com","88950674"),
-			      (2, "Sukhendu Datta", "S", 2, 1, "Khurdha", "752050", "suku0372@gmail.com","9437856640"),
-            (3, "Abhilash Mahanta ", "S", 3, 1, "Khurdha", "752050", "abhi0923gmail.com","9438256177"),
-            (4, "Prakash Sahoo", "S", 2, 4, "Odia Bajar", "544890", "prakash6969@gmail.com","9138546277"),
-            (5, "Gourab Kumar Sahoo", "S", 4, 2, "Ogalapada", "853460", "goura2244@gmail.com","9777559635");
+            (1, "Papu Sahoo", "M", 1, 2, "Bhubaneswar", "751024", "[papu9876@gmail.com","88950674"),
+			      (2, "Sukhendu Datta", "M", 2, 1, "Khurdha", "752050", "suku0372@gmail.com","9437856640"),
+            (3, "Abhilash Mahanta ", "M", 3, 1, "Khurdha", "752050", "abhi0923gmail.com","9438256177"),
+            (4, "Prakash Sahoo", "M", 2, 4, "Odia Bajar", "544890", "prakash6969@gmail.com","9138546277"),
+            (5, "Gourab Kumar Sahoo", "M", 4, 2, "Ogalapada", "853460", "goura2244@gmail.com","9777559635");
 
 
     SELECT c.con_id, c.con_name, c.gender, g.cat_name, l.loc_name, c.mobile_no1 FROM contact AS c
