@@ -1,6 +1,96 @@
-// CATAGORY DISPLAY //
+//   Catagory New Add  //
 
-package com.category;
+package MyContact.Category;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class CategoryAddNew {
+    Statement stmt;
+
+    public CategoryAddNew(Connection conn, Scanner scan) {
+        for(int i=0; i<10; i++) System.out.println();
+        System.out.println("Category Add");
+        System.out.println("");
+        System.out.print("Enter New Category Name: ");
+        String name = scan.nextLine();
+
+        try {
+            stmt = conn.createStatement();
+            int count = stmt.executeUpdate("INSERT INTO category(cat_name) VALUE('"+name+"')");
+            if(count==0) {
+                System.out.println("There was an error!");
+                System.out.println("Press enter to proceed");
+                scan.nextLine();
+            }
+        } catch(SQLException e) {
+
+        } finally {
+            try {
+                stmt.close();
+            } catch(SQLException e) {
+
+            }
+        }
+    }
+}
+
+
+//  Catagory Delete
+
+
+package MyContact.Category;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class CategoryDelete {
+    Statement stmt;
+    String name;
+
+    public CategoryDelete(Connection conn, Scanner scan) {
+        for (int i = 0; i < 10; i++)
+            System.out.println();
+        System.out.println("Category Delete");
+        System.out.println();
+        System.out.print("Enter Category ID: ");
+        int id = scan.nextInt();
+        String deleteQuery = "DELETE FROM CATEGORY WHERE CAT_ID = ?";
+
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(deleteQuery);
+            preparedStatement.setInt(1, id);
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Row with ID " + id + " deleted successfully.");
+            } else {
+                System.out.println("No records found for ID " + id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("unsuccessfull operation");
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+
+            }
+        }
+    }
+}
+
+
+//   Catagory Display
+
+
+
+package MyContact.Category;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -9,269 +99,451 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class CategoryDisplay {
-	public Statement stmt;
-	public ResultSet rs;
-	public ResultSetMetaData rsmd;
-	public CategoryDisplay(Connection conn, Scanner scan) {
-		try {
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM category");
-			rsmd = rs.getMetaData();
-			for(int i=1; i<=rsmd.getColumnCount(); i++) {
-				System.out.print(rsmd.getColumnName(i)+"\t");
-			}
-			System.out.println();
-			while(rs.next()) {
-				for(int i=1; i<=rsmd.getColumnCount(); i++) {
-					System.out.print(rs.getString(i)+"\t");
-				}
-				System.out.println();
-			}
-			System.out.println();
-			System.out.println();
-			System.out.println("Press enter to display category menu");
-			scan.nextLine();
-		} catch(SQLException e) {
-		} catch(Exception e) {
-		} finally {
-			try {
-				stmt.close();
-			} catch(SQLException e) {
-			} catch(Exception e) {
-			}
-		}
-	}
+    public Statement stmt;
+    public ResultSet rs;
+    public ResultSetMetaData rsmd;
+
+    public CategoryDisplay(Connection conn, Scanner scan) {
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM category");
+            rsmd = rs.getMetaData();
+
+            for(int i=1; i<=rsmd.getColumnCount(); i++) {
+                System.out.print(rsmd.getColumnName(i)+"\t");
+            }
+            System.out.println();
+            while(rs.next()) {
+                for(int i=1; i<=rsmd.getColumnCount(); i++) {
+                    System.out.print(rs.getString(i)+"\t");
+                }
+                System.out.println();
+            }
+
+            System.out.println();
+            System.out.println();
+            System.out.println("Press enter to display category menu");
+            scan.nextLine();
+        } catch(SQLException e) {
+        } catch(Exception e) {
+        } finally {
+            try {
+                stmt.close();
+            } catch(SQLException e) {
+            } catch(Exception e) {
+            }
+        }
+    } 
 }
 
-// CATAGORY MENU //
 
-package com.contact.main;
+//    Catagory Menu
+
+
+package MyContact.Category;
 
 import java.sql.Connection;
 import java.util.Scanner;
-import com.category.CategoryDisplay;
 
 public class CategoryMenu {
-	public CategoryMenu(Connection conn, Scanner scan) {
-		String choice;
-		boolean yn = true;
-		while(yn) {
-			for(int i=0; i<10; i++) System.out.println();
-			System.out.println("Category Menu");
-			System.out.println("1. Display");
-			System.out.println("2. Add New");
-			System.out.println("3. Update");
-			System.out.println("4. Delete");
-			System.out.println("5. Exit");
-			System.out.println();
-			System.out.print("Choice: ");
-			choice = scan.nextLine();
-			if(choice.equals("1")) {
-				new CategoryDisplay(conn, scan);
-			} else if(choice.equals("2")) {
-			} else if(choice.equals("3")) {
-			} else if(choice.equals("4")) {
-			} else if(choice.equals("5")) {
-				yn = false;
-			}
-		}
-	}
+    public CategoryMenu(Connection conn, Scanner scan) {
+        String choice;
+        boolean yn = true;
+        while (yn) {
+            for (int i = 0; i < 10; i++)
+                System.out.println();
+            System.out.println("Category Menu");
+            System.out.println("1. CategoryDisplay");
+            System.out.println("2. Add New");
+            System.out.println("3. Update");
+            System.out.println("4. Delete");
+            System.out.println("5. Exit");
+            System.out.println();
+            System.out.print("Choice: ");
+            choice = scan.nextLine();
+            if (choice.equals("1")) {
+                new CategoryDisplay(conn, scan);
+            } else if (choice.equals("2")) {
+                new CategoryAddNew(conn, scan);
+            } else if (choice.equals("3")) {
+                new CategoryUpdate(conn,scan);
+            } else if (choice.equals("4")) {
+                new CategoryDelete(conn,scan);
+            } else if (choice.equals("5")) {
+                yn = false;
+            }
+        }
+    }
 }
 
 
-// CONTACT //
+// Catagory Upadete
 
-package com.contact.main;
+
+package MyContact.Category;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class CategoryUpdate {
+    Statement stmt;
+    String name;
+    public CategoryUpdate(Connection conn, Scanner scan) {
+        for (int i = 0; i < 10; i++)
+            System.out.println();
+        System.out.println("Category Update");
+        System.out.println("");
+        System.out.print("Enter Category ID: ");
+        int id = scan.nextInt();
+        System.out.print("Enter Name to update: ");
+         name = scan.next();
+
+        String updateQuery = "UPDATE CATEGORY SET CAT_NAME = ? WHERE CAT_ID = ?";
+
+        try{
+             PreparedStatement preparedStatement = conn.prepareStatement(updateQuery);
+             preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, id);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Name updated successfully for ID : " + id);
+				
+            } else {
+                System.out.println("No records found for ID " + id);
+            }
+            System.out.println("Press enter to proceed");
+            scan.nextLine();
+        } catch(SQLException e) {
+            System.out.println("unsuccessfull operation");
+        } finally {
+            try {
+                stmt.close();
+            } catch(SQLException e) {
+
+            }
+        }
+    }
+}
+
+
+
+
+// CONTACT
+
+
+
+//  Add New Conatct
+
+package MyContact.Contact;
+
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class Contact {
-	public Connection conn;
-	public Statement stmt;
-	public ResultSet rs;
-	public ResultSetMetaData rsmd;
-	public Scanner scan;
-	public Contact() {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");   //	Step-1 Load and Register Driver
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/contact_db", "root", "");  // 	Step-2 Create Connection Object
-			scan = new Scanner(System.in);
-			String choice = "0";
-			boolean yn = true;
-			while(yn) {
-				for(int i=0; i<10; i++) System.out.println();
-				System.out.println("MAIN MENU");
-				System.out.println("1. Category");
-				System.out.println("2. Location");
-				System.out.println("3. Contact");
-				System.out.println("4. Exit");
-				System.out.println();
-				System.out.print("Choice: ");
-				choice = scan.nextLine();
-				if(choice.equals("1")) {
-					new CategoryMenu(conn, scan);
-				} else if(choice.equals("2")) {
-					new LocationMenu(conn, scan);
-				} else if(choice.equals("3")) {
-					new ContactMenu(conn, scan);
-				} else if(choice.equals("4")) {
-					conn.close();
-					System.out.println("Thank you for using Contact App");
-					System.exit(0);
-				}
-			}	
-		} catch(ClassNotFoundException e) {
-		} catch(SQLException e) {
-		} catch(Exception e) {
-		} finally {
-			try {
-				//	Step-6 Close ResultSet, Statement and Connection
-				rs.close();
-				stmt.close();
-				conn.close();
-			} catch(SQLException e1) {
-			} catch(Exception e1) {
-			}
-		}
-	}
-	public static void main(String[] args) {
-		new Contact();
-	}
+public class ContactAddNew {
+    Statement stmt;
+    int LOC_ID;
+    int CAT_ID;
+    String ADDRESS=null,PINCODE=null,EMAIL_ID=null,Mobile_NO1=null;
+
+    public ContactAddNew(Connection conn, Scanner scan) {
+        for (int i = 0; i < 10; i++)
+            System.out.println();
+        System.out.println("Contact Add");
+        System.out.println("");
+        System.out.print("Enter New Contact Name: ");
+        String CON_NAME = scan.nextLine();
+        System.out.print("Enter Gender: ");
+        String GENDER = scan.nextLine();
+
+        System.out.print("Choose Category Id:");
+        System.out.println();
+        try {
+            Statement stmt0 = conn.createStatement();
+            ResultSet rs0 = stmt0.executeQuery("SELECT * FROM category ORDER BY cat_id");
+            ResultSetMetaData rsmd0 = rs0.getMetaData();
+
+            for (int i = 1; i <= rsmd0.getColumnCount(); i++) {
+                System.out.print(rsmd0.getColumnName(i) + "\t");
+            }
+            System.out.println();
+            while (rs0.next()) {
+                for (int i = 1; i <= rsmd0.getColumnCount(); i++) {
+                    System.out.print(rs0.getString(i) + "\t");
+                }
+                System.out.println();
+            }
+            System.out.println();
+            CAT_ID = scan.nextInt();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.print("Choose Location Id: ");
+        System.out.println();
+        try {
+            Statement stmt1 = conn.createStatement();
+            ResultSet rs1 = stmt1.executeQuery("SELECT * FROM location ORDER BY loc_id");
+            ResultSetMetaData rsmd1 = rs1.getMetaData();
+
+            for (int i = 1; i <= rsmd1.getColumnCount(); i++) {
+                System.out.print(rsmd1.getColumnName(i) + "\t");
+            }
+            System.out.println();
+            while (rs1.next()) {
+                for (int i = 1; i <= rsmd1.getColumnCount(); i++) {
+                    System.out.print(rs1.getString(i) + "\t");
+                }
+                System.out.println();
+            }
+            System.out.println();
+            LOC_ID = scan.nextInt();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("");
+        System.out.println("Enter Address in 100 characters : ");
+        ADDRESS = scan.nextLine();
+
+        System.out.println("Enter Pincode : ");
+        PINCODE = scan.nextLine();
+        
+        System.out.println("Enter Email : ");
+        EMAIL_ID = scan.nextLine();
+
+        System.out.println("Enter mobile no. : ");
+        String Mobile_NO1 = scan.nextLine();
+
+        try {
+            stmt = conn.createStatement();
+            // String quer = "INSERT INTO CONTACT(CON_NAME,GENDER,CAT_ID,LOC_ID,ADDRESS,PINCODE,EMAIL_ID,Mobile_NO1) VALUE ("+CON_NAME+","+GENDER+","+CAT_ID+","+LOC_ID+","+ADDRESS+","+PINCODE+","+EMAIL_ID+","+Mobile_NO1+")";
+            int count = stmt.executeUpdate("INSERT INTO LOCATION(LOC_NAME) VALUE("+CON_NAME+","+GENDER+","+CAT_ID+","+LOC_ID+","+ADDRESS+","+PINCODE+","+EMAIL_ID+","+Mobile_NO1+")");
+            if (count == 0) {
+                System.out.println("There was an error!");   
+            } else {
+                System.out.println("Data Added Successfully");
+                System.out.println();
+                 System.out.println("Press enter to proceed");
+                scan.nextLine();
+            }
+        } catch (SQLException e) {
+          e.printStackTrace();
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+            }
+        }
+    }
+}
+//  preparedStatement.setString(1, CON_NAME);
+//             preparedStatement.setString(2, GENDER);
+//             preparedStatement.setInt(3, CAT_ID);
+//             preparedStatement.setInt(4, LOC_ID);
+//             preparedStatement.setString(5, ADDRESS);
+//             preparedStatement.setString(6, PINCODE);
+//             preparedStatement.setString(7, EMAIL_ID);
+//             preparedStatement.setString(8, Mobile_NO1)
+
+
+
+//  Delete Contact
+
+
+package MyContact.Contact;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class ContactDelete {
+    Statement stmt;
+    String name;
+    
+    public ContactDelete(Connection conn, Scanner scan) {
+        for (int i = 0; i < 10; i++)
+            System.out.println();
+        System.out.println("Category Delete");
+        System.out.println();
+        System.out.print("Enter Category ID: ");
+        int id = scan.nextInt();
+        String deleteQuery = "DELETE FROM CONTACT WHERE CON_ID = ?";
+
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(deleteQuery);
+            preparedStatement.setInt(1, id);
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Row with ID " + id + " deleted successfully.");
+            } else {
+                System.out.println("No records found for ID " + id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("unsuccessfull operation");
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+
+            }
+        }
+    }
 }
 
-// CONTACT.SQL //
 
-DROP DATABASE IF EXISTS contact_db;
-CREATE DATABASE IF NOT EXISTS contact_db;
-USE contact_db;
-#####################
-###   LOCATION    ###
-#####################
-SELECT "Location";
-DROP TABLE IF EXISTS location;
-CREATE TABLE IF NOT EXISTS location(
-    loc_id      INT(6)          NOT NULL AUTO_INCREMENT,
-    loc_name    VARCHAR(100)    NOT NULL UNIQUE,
-    PRIMARY KEY(loc_id)
-);
-INSERT INTO location VALUES
-    (1, "Bhubaneswar"),
-    (2, "Cuttack"),
-    (3, "Banagalore"),
-    (4, "Mumbai"),
-    (5, "USA"),
-    (6, "Rourkela");
+//  Conatct Display
 
-########################
-###    CATEGORY     ####
-########################
-SELECT "Category";
-DROP TABLE IF EXISTS category;
-CREATE TABLE IF NOT EXISTS category(
-    cat_id          INT(6)          NOT NULL AUTO_INCREMENT,
-    cat_name        VARCHAR(50)     NOT NULL UNIQUE,
-    PRIMARY KEY(cat_id)
-);
-INSERT INTO category VALUES
-    (1, "School Friends"),
-    (2, "College Friends"),
-    (3, "Professional Friends"),
-    (4, "Family Friends"),
-    (5, "Family Relatives"),
-    (6, "Blood Relation");
-#######################
-###    CONTACT     ####
-#######################
-SELECT "Contact";
-DROP TABLE IF EXISTS contact;
-CREATE TABLE IF NOT EXISTS contact(
-    contact_id      INT(6)          NOT NULL AUTO_INCREMENT,
-    contact_name    VARCHAR(50)     NOT NULL,
-    cat_id          INT(6)          NOT NULL REFERENCES category(cat_id),
-    loc_id          INT(6)          NOT NULL REFERENCES location(loc_id),
-    address         VARCHAR(150)    DEFAULT NULL,
-    pincode         VARCHAR(10)     DEFAULT NULL,
-    email_id1       VARCHAR(50)     DEFAULT NULL,
-    email_id2       VARCHAR(50)     DEFAULT NULL,
-    mobile_no1      VARCHAR(50)     DEFAULT NULL,
-    mobile_no2      VARCHAR(50)     DEFAULT NULL,
-    mobile_no3      VARCHAR(50)     DEFAULT NULL,
-    PRIMARY KEY(contact_id)
-);
-INSERT INTO contact VALUES
-    (1, "Milan Das",     3, 1, NULL, "751024", "milandas63@gmail.com",   NULL, "7978168568", NULL, NULL),
-    (2, "Papu Sahoo", 3, 1, NULL, "751024", "papusahoo@gmail.com", NULL, "9437168568", NULL, NULL);
+package MyContact.Contact;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class ContactDisplay {
+    public Statement stmt;
+    public ResultSet rs;
+    public ResultSetMetaData rsmd;
+
+    public ContactDisplay(Connection conn, Scanner scan) {
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM CONTACT");
+            rsmd = rs.getMetaData();
+
+            for(int i=1; i<=rsmd.getColumnCount(); i++) {
+                System.out.print(rsmd.getColumnName(i)+"\t");
+            }
+            System.out.println();
+            while(rs.next()) {
+                for(int i=1; i<=rsmd.getColumnCount(); i++) {
+                    System.out.print(rs.getString(i)+"\t");
+                }
+                System.out.println();
+            }
+
+            System.out.println();
+            System.out.println();
+            System.out.println("Press enter to display category menu");
+            scan.nextLine();
+        } catch(SQLException e) {
+        } catch(Exception e) {
+        } finally {
+            try {
+                stmt.close();
+            } catch(SQLException e) {
+            } catch(Exception e) {
+            }
+        }
+    }
+}
 
 
-// CONTACT MENU //
 
-package com.contact.main;
+//    contact menu
+
+package MyContact.Contact;
 
 import java.sql.Connection;
 import java.util.Scanner;
 
 public class ContactMenu {
-	public ContactMenu(Connection conn, Scanner scan) {
-		String choice;
-		boolean yn = true;
-		while(yn) {
-			for(int i=0; i<10; i++) System.out.println();
-			System.out.println("Contact Menu");
-			System.out.println("1. Display");
-			System.out.println("2. Add New");
-			System.out.println("3. Update");
-			System.out.println("4. Delete");
-			System.out.println("5. Exit");
-			System.out.println();
-			System.out.print("Choice: ");
-			choice = scan.nextLine();
-			if(choice.equals("1")) {
-			} else if(choice.equals("2")) {
-			} else if(choice.equals("3")) {
-			} else if(choice.equals("4")) {
-			} else if(choice.equals("5")) {
-				yn = false;
-			}
-		}
-	}
+    public ContactMenu(Connection conn, Scanner scan) {
+        String choice;
+        boolean yn = true;
+        while(yn) {
+            for(int i=0; i<10; i++) System.out.println();
+            System.out.println("Contact Menu");
+            System.out.println("1. Display");
+            System.out.println("2. Add New");
+            System.out.println("3. Update");
+            System.out.println("4. Delete");
+            System.out.println("5. Exit");
+            System.out.println();
+            System.out.print("Choice: ");
+            choice = scan.nextLine();
+            if(choice.equals("1")) {
+                new ContactDisplay(conn, scan);
+            } else if(choice.equals("2")) {
+                new ContactAddNew(conn, scan);
+            } else if(choice.equals("3")) {
+                new ContactUpdate(conn, scan);
+            } else if(choice.equals("4")) {
+                new ContactDelete(conn, scan);
+            } else if(choice.equals("5")) {
+                yn = false;
+            }
+        }
+    }
 }
 
-// LOCATION MENU //
 
-package com.contact.main;
+
+//  Contact Update
+
+package MyContact.Contact;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
-public class LocationMenu {
-	public LocationMenu(Connection conn, Scanner scan) {
-		String choice;
-		boolean yn = true;
-		while(yn) {
-			for(int i=0; i<10; i++) System.out.println();
-			System.out.println("Location Menu");
-			System.out.println("1. Display");
-			System.out.println("2. Add New");
-			System.out.println("3. Update");
-			System.out.println("4. Delete");
-			System.out.println("5. Exit");
-			System.out.println();
-			System.out.print("Choice: ");
-			choice = scan.nextLine();
-			if(choice.equals("1")) {
-			} else if(choice.equals("2")) {
-			} else if(choice.equals("3")) {
-			} else if(choice.equals("4")) {
-			} else if(choice.equals("5")) {
-				yn = false;
-			}
-		}
+public class ContactUpdate {
+    Statement stmt;
+    String name;
 
-	}
+    public ContactUpdate(Connection conn, Scanner scan) {
+        for (int i = 0; i < 10; i++)
+            System.out.println();
+        System.out.println("Contact Update");
+        System.out.println("");
+        System.out.print("Enter Contact ID: ");
+        int id = scan.nextInt();
+        System.out.print("Enter Name to update: ");
+         name = scan.next();
+
+        String updateQuery = "UPDATE CONTACT SET CON_NAME = ? WHERE CON_ID = ?";
+
+        try{
+             PreparedStatement preparedStatement = conn.prepareStatement(updateQuery);
+             preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, id);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Name updated successfully for ID : " + id);
+				
+            } else {
+                System.out.println("No records found for ID " + id);
+            }
+            System.out.println("Press enter to proceed");
+            scan.nextLine();
+        } catch(SQLException e) {
+            System.out.println("unsuccessfull operation");
+        } finally {
+            try {
+                stmt.close();
+            } catch(SQLException e) {
+
+            }
+        }
+    }
 }
