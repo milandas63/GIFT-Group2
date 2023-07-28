@@ -547,3 +547,304 @@ public class ContactUpdate {
         }
     }
 }
+
+
+
+//  LOCATION
+
+// New Location Add
+
+package MyContact.Location;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class LocationAddNew {
+    Statement stmt;
+    public LocationAddNew(Connection conn, Scanner scan) {
+        for(int i=0; i<10; i++) System.out.println();
+        System.out.println("Location Add");
+        System.out.println("");
+        System.out.print("Enter New Location Name: ");
+        String name = scan.nextLine();
+
+        try {
+            stmt = conn.createStatement();
+            int count = stmt.executeUpdate("INSERT INTO LOCATION(LOC_NAME) VALUE('"+name+"')");
+            if(count==0) {
+                System.out.println("There was an error!");
+                System.out.println("Press enter to proceed");
+                scan.nextLine();
+            }
+        } catch(SQLException e) {
+
+        } finally {
+            try {
+                stmt.close();
+            } catch(SQLException e) {
+
+            }
+        }
+    }
+}
+
+//  Location Delete
+
+
+package MyContact.Location;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+public class LocationDelete {
+    Statement stmt;
+    String name;
+
+    public LocationDelete(Connection conn, Scanner scan) {
+        for (int i = 0; i < 10; i++)
+            System.out.println();
+        System.out.println("Location Delete");
+        System.out.println();
+        System.out.print("Enter Location ID: ");
+        int id = scan.nextInt();
+        String deleteQuery = "DELETE FROM LOCATION WHERE LOC_ID = ?";
+
+
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(deleteQuery);
+            preparedStatement.setInt(1, id);
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Row with ID " + id + " deleted successfully.");
+            } else {
+                System.out.println("No records found for ID " + id);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("unsuccessfull operation");
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+
+            }
+        }
+    }
+    
+}
+
+//    Location Display
+
+
+package MyContact.Location;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class LocationDispaly {
+    public Statement stmt;
+    public ResultSet rs;
+    public ResultSetMetaData rsmd;
+
+    public LocationDispaly(Connection conn, Scanner scan) {
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM LOCATION");
+            rsmd = rs.getMetaData();
+
+            for(int i=1; i<=rsmd.getColumnCount(); i++) {
+                System.out.print(rsmd.getColumnName(i)+"\t");
+            }
+            System.out.println();
+            while(rs.next()) {
+                for(int i=1; i<=rsmd.getColumnCount(); i++) {
+                    System.out.print(rs.getString(i)+"\t");
+                }
+                System.out.println();
+            }
+
+            System.out.println();
+            System.out.println();
+            System.out.println("Press enter to display category menu");
+            scan.nextLine();
+        } catch(SQLException e) {
+        } catch(Exception e) {
+        } finally {
+            try {
+                stmt.close();
+            } catch(SQLException e) {
+            } catch(Exception e) {
+            }
+        }
+    }
+    
+}
+
+//  Location Menu
+
+package MyContact.Location;
+
+import java.sql.Connection;
+import java.util.Scanner;
+
+public class LocationMenu {
+    public LocationMenu(Connection conn, Scanner scan) {
+        String choice;
+        boolean yn = true;
+        while(yn) {
+            for(int i=0; i<10; i++) System.out.println();
+            System.out.println("Location Menu");
+            System.out.println("1. Display");
+            System.out.println("2. Add New");
+            System.out.println("3. Update");
+            System.out.println("4. Delete");
+            System.out.println("5. Exit");
+            System.out.println();
+            System.out.print("Choice: ");
+            choice = scan.nextLine();
+            if(choice.equals("1")) {
+                new LocationDispaly(conn, scan);
+            } else if(choice.equals("2")) {
+                new LocationAddNew(conn, scan);
+            } else if(choice.equals("3")) {
+                new LocationUpdate(conn, scan);
+            } else if(choice.equals("4")) {
+                new LocationDelete(conn, scan);
+            } else if(choice.equals("5")) {
+                yn = false;
+            }
+        }
+
+    }
+}
+
+//   Location Update
+
+
+package MyContact.Location;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class LocationUpdate {
+    Statement stmt;
+    String name;
+    public LocationUpdate(Connection conn, Scanner scan) {
+        for (int i = 0; i < 10; i++)
+            System.out.println();
+        System.out.println("Location Update");
+        System.out.println("");
+        System.out.print("Enter Location ID: ");
+        int id = scan.nextInt();
+        System.out.print("Enter Location Name to update: ");
+         name = scan.next();
+
+        String updateQuery = "UPDATE LOCATION SET LOC_NAME = ? WHERE LOC_ID = ?";
+
+        try{
+             PreparedStatement preparedStatement = conn.prepareStatement(updateQuery);
+             preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, id);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Name updated successfully for ID : " + id);
+				
+            } else {
+                System.out.println("No records found for ID " + id);
+            }
+            System.out.println("Press enter to proceed");
+            scan.nextLine();
+        } catch(SQLException e) {
+            System.out.println("unsuccessfull operation");
+        } finally {
+            try {
+                stmt.close();
+            } catch(SQLException e) {
+
+            }
+        }
+    }
+}
+
+//  My Contact SQL
+
+use mycontact;
+
+
+    create table CATEGORY(
+		CAT_ID 		int(6) 			not null auto_increment,
+		CAT_NAME 	varchar(40) 	not null unique,
+    primary key(CAT_ID)
+);
+    insert into CATEGORY values
+		(1, "Family"),
+        (2, "Friend"),
+        (3, "Professional Friend"),
+        (4, "Relative");
+    drop table CATEGORY;
+
+
+    create table LOCATION(
+	LOC_ID		int(6)			not null auto_increment,
+    LOC_NAME	varchar(50)		not null unique,
+    primary key(LOC_ID)
+);
+    insert into LOCATION values
+            (1, "Odisha"),
+			(2, "Gujurat"),
+            (3, "Mumbai"),
+            (4, "Rajhesthan"),
+            (5, "Punjab"),
+            (6, "Uttar Pradesh"),
+            (7, "Delhi"),
+            (8, "Chandigarh");
+    drop table LOCATION;
+    select *from LOCATION;
+
+
+    create table CONTACT(
+	CON_ID			int(6)			not null auto_increment,
+    CON_NAME		varchar(50)		not null ,
+    GENDER			enum("M", "F")	default null,
+    CAT_ID			int(6)			not null references CATEGORY(CAT_ID),
+    LOC_ID			int(6)			not null references LOCATION(LOC_ID),
+    ADDRESS			varchar(150)	default null,
+    PINCODE			varchar(10)		default null,
+    EMAIL_ID		varchar(50)		default null,
+    MOBILE_NO1		varchar(15)		not null,
+    primary key(CON_ID)
+    );
+    drop table CONTACT;
+    select * from CONTACT;
+
+
+    insert into CONTACT values
+            (1, "Rahul Mohanty", "M", 1, 2, "Bhubaneswar", "751024", "montyrahul4495@gmail.com","9510207475"),
+			(2, "Abinash Dash", "M", 2, 1, "Khurdha", "752050", "abhi5648@gmail.com","9778945547"),
+            (3, "A.Srinibash ", "M", 3, 1, "Khurdha", "752050", "srinu5689@gmail.com","9713545547"),
+            (4, "Sahil Jain", "M", 2, 4, "Banswada", "544890", "mrsj1698@gmail.com","7894554756"),
+            (5, "Bikram Dash", "M", 4, 2, "Gandhinagar", "853460", "bikrambkd5648@gmail.com","9456687547");
+
+
+    SELECT c.con_id, c.con_name, c.gender, g.cat_name, l.loc_name, c.mobile_no1 FROM contact AS c
+    LEFT JOIN category AS g ON c.cat_id=g.cat_id
+    LEFT JOIN location AS l ON c.loc_id=l.loc_id;
+
+    select * from Contact;
+
+
+
